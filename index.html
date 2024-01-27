@@ -6,20 +6,63 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
+      let status = profile.active
+      let result = { 
+        active: undefined ,
+        reason: undefined
+      }
+      if (status === false && typeof profile.reason === 'string') {
+        result.active = true
+        delete result.reason
+        return result
+      } else if (status === true && typeof reason === 'string') {
+        result.active = false
+        result.reason = reason
+        return result
+      } else if (typeof status === 'boolean' && typeof reason === 'undefined') {
+        return 'confirm status manually'
+      }
 
     }
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
-
+      if (x - 1 > 2 || x - 1 < 0 || y - 1 > 2 || y - 1 < 0) {
+        return 'invalid coordinates'
+      } else if (grid[y - 1][x - 1] === '🟥') {
+      return '🟥 💀'
+      } else if (grid[y - 1][x - 1] === '🟦') {
+        return '🟦 🥳'
+      }
     }
 
     // 👉 CHALLENGE 3
+    // 1. Transform any value of zero (`0`) into the boolean `false`.
+    // 2. Transform any value of one (`1`) into the boolean `true`.
+    // 3. If a value is `null`, delete the entire key-value pair from the object.
+    // 4. If any _property_ name exceeds 9 characters, return the string `"shorten all prop names to 9 chars or less"`.
     function booleanize(obj) {
+      let result = {}
+      for (let i in obj) {
+        let keyString = JSON.stringify(i)
+        if (keyString.length > 9) {
+          return 'shorten all prop names to 9 chars or less'
+        } else if (obj[i] === null) {
+          delete obj[i]
+        } else if (obj[i] === 1) {
+          obj[i] = true
+        } else if (obj[i] === 0) {
+          obj[i] = false
+        } 
+      } return obj
+      
 
     }
 
     // 👉 CHALLENGE 4
+    // 1. Replace each word in `text` that is included in the `forbidden` array with a string of "x" characters of equal length to the forbidden word.
+    // 2. Ensure no punctuation is used in the text.
+    // 3. If `text` is empty or there are no forbidden words, return the original text.
     function scrub(text, forbidden) {
 
     }
